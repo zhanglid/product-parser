@@ -8,9 +8,12 @@ const getCallback = (resolve, reject) =>
     if (error) {
       reject(error);
     } else {
-      const item = parseItem(res.$);
-
-      resolve(item);
+      try {
+        const item = parseItem(res.$);
+        resolve(item);
+      } catch (error) {
+        reject(error);
+      }
     }
     done();
   };

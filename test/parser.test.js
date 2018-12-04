@@ -31,7 +31,8 @@ const cases = [
       weight: {},
       brand: "RedTaro",
       UPC: undefined
-    }
+    },
+    source: "Amazon"
   },
   {
     file: "case2.html",
@@ -59,7 +60,8 @@ const cases = [
       weight: { weight: 1.6, unit: "ounces" },
       brand: "SaferCCTV",
       UPC: undefined
-    }
+    },
+    source: "Amazon"
   },
   {
     file: "case3.html",
@@ -84,7 +86,8 @@ const cases = [
       weight: { weight: 0.8, unit: "ounces" },
       brand: "Kent",
       UPC: "885176827251"
-    }
+    },
+    source: "Amazon"
   },
   {
     file: "case4.html",
@@ -105,7 +108,8 @@ const cases = [
       weight: { weight: 6, unit: "pounds" },
       brand: "Snugger",
       UPC: undefined
-    }
+    },
+    source: "Amazon"
   },
   {
     file: "case5.html",
@@ -131,35 +135,98 @@ const cases = [
       weight: { weight: 2.5, unit: "pounds" },
       brand: "BLACK+DECKER",
       UPC: 885911466127
-    }
+    },
+    source: "Amazon"
+  },
+  {
+    file: "case6.html",
+    expected: {
+      title: "Glock BeaverTail Adapter For Glock 17 19 22 23 24 31 32 34 35 37 38",
+      // price: {
+      //   unit: "$",
+      //   price: 29.99
+      // },
+      // dealPrice: {},
+      // additionalDescription: "",
+      // description:
+      //   "12V MAX Lithium Ion Battery - Always ready, holds a charge up to 18 months Soft grip handle for comfort and variable speed trigger for control Compact size for tight spaces Integrated LED work light More",
+      // images: [
+      //   "https://images-na.ssl-images-amazon.com/images/I/41PTdwOUkGL._SS40_.jpg",
+      //   "https://images-na.ssl-images-amazon.com/images/I/41gE0sLSngL._SS40_.jpg",
+      //   "https://images-na.ssl-images-amazon.com/images/I/51D58VwUAlL._SS40_.jpg",
+      //   "https://images-na.ssl-images-amazon.com/images/I/51G%2BHFhPFDL._SS40_.jpg",
+      //   "https://images-na.ssl-images-amazon.com/images/I/51w0oD3pomL._SS40_.jpg",
+      //   "https://images-na.ssl-images-amazon.com/images/I/41qy2xnchIL._SS40_.jpg"
+      // ],
+      // size: { length: 9.4, width: 2.8, height: 8.1, unit: "inches" },
+      // weight: { weight: 2.5, unit: "pounds" },
+      // brand: "BLACK+DECKER",
+      // UPC: 885911466127
+    },
+    source: "eBay"
+  },
+  {
+    file: "case7.html",
+    expected: {
+      title: "Apple iPhone7 7 (Factory Unlocked) Verizon AT&T T-Mobile Sprint 32GB 128GB 256GB",
+      // price: {
+      //   unit: "$",
+      //   price: 29.99
+      // },
+      // dealPrice: {},
+      // additionalDescription: "",
+      // description:
+      //   "12V MAX Lithium Ion Battery - Always ready, holds a charge up to 18 months Soft grip handle for comfort and variable speed trigger for control Compact size for tight spaces Integrated LED work light More",
+      // images: [
+      //   "https://images-na.ssl-images-amazon.com/images/I/41PTdwOUkGL._SS40_.jpg",
+      //   "https://images-na.ssl-images-amazon.com/images/I/41gE0sLSngL._SS40_.jpg",
+      //   "https://images-na.ssl-images-amazon.com/images/I/51D58VwUAlL._SS40_.jpg",
+      //   "https://images-na.ssl-images-amazon.com/images/I/51G%2BHFhPFDL._SS40_.jpg",
+      //   "https://images-na.ssl-images-amazon.com/images/I/51w0oD3pomL._SS40_.jpg",
+      //   "https://images-na.ssl-images-amazon.com/images/I/41qy2xnchIL._SS40_.jpg"
+      // ],
+      // size: { length: 9.4, width: 2.8, height: 8.1, unit: "inches" },
+      // weight: { weight: 2.5, unit: "pounds" },
+      // brand: "BLACK+DECKER",
+      // UPC: 885911466127
+    },
+    source: "eBay"
   }
 ];
 
-const getTest = ({ file, expected }) => () => {
+const getTest = ({ file, expected, source }) => () => {
   const html = fs.readFileSync(__dirname + "/" + file);
   const $ = cheerio.load(html);
-  const item = parser.parseItem($);
+  const item = parser.parseItem($, source);
   assert.deepEqual(expected, item);
 };
 
 describe("parse amazon correctly", () => {
-  it("case 1", () => {
-    getTest(cases[0])();
+  // it("case 1", () => {
+  //   getTest(cases[0])();
+  // });
+
+  // it("case 2", () => {
+  //   getTest(cases[1])();
+  // });
+
+  // it("case 3", () => {
+  //   getTest(cases[2])();
+  // });
+
+  // it("case 4", () => {
+  //   getTest(cases[3])();
+  // });
+
+  // it("case 5", () => {
+  //   getTest(cases[4])();
+  // });
+
+  it("case 6", () =>{
+    getTest(cases[5])();
   });
 
-  it("case 2", () => {
-    getTest(cases[1])();
-  });
-
-  it("case 3", () => {
-    getTest(cases[2])();
-  });
-
-  it("case 4", () => {
-    getTest(cases[3])();
-  });
-
-  it("case 5", () => {
-    getTest(cases[4])();
+  it("case 7", () =>{
+    getTest(cases[6])();
   });
 });
